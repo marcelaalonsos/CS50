@@ -1,4 +1,4 @@
-WEEK 0 NOTES
+WEEK 0 NOTES - SCRATCH
 
 COMPUTATIONAL THINKING
 
@@ -48,6 +48,7 @@ TEXT - REPRESENTATION
 EMOJI - REPRESENTATION
 
 - since there were not enough digits in binary to represent all the various characters that could be represented by humans, the UNICODE standard expanded the number of bits that can be transmitted and understood by computers
+- Computer scientists faced a challenge when wanting to assign various skin tones to each emoji to allow the communication to be further personalized. In this case, the creators and contributors of emojis decided that the initial bits would be the structure of the emoji itself, followed by skin tone.
 
 
 RBG - REPRESENTATION
@@ -61,4 +62,106 @@ IMAGES, VIDEO AND SOUND
 - videos are sequences of many images that are stored togetherm like a flipbook
 - music can be represented through MIDI data
 
+ALGORITHMS - ABSTRACTION
+
+- problem-solving is central to computer science and computer programming
+- imagine the basic problem of trying to locate a single name in the phone book
+- how might you go about this?
+- one approach could be to simple read from page to page until reaching the last page- another approach would be to search two pages at a time
+- a final and perhaps better approach could be to go to the middle of the phone book and ask "is the name I am looking for to the left or to the right?"
+- then, repeat this process, cutting the problem in half and half and half- each of these approches could be called algorithms
+- the speed of each algorithm can be pictured in what is called big-O notation
+- the first approach has a big-O of n because n represents the number of pages, as it increases one by one
+- the seconf approach, has a big-O of n/2 because it searches twice as fast through the pages
+- the final algorithm has a big-O of log2n as doubling the problem would only result in one more step to solve the problem
+
+PSEUDOCODE AND THE BASIC BLOCKS OF PROGRAMMING
+
+- pseudocode is a human-readable version of your code. for example, considering the third algorithm above, we could compose pseudocode as follows:
+1  Pick up phone book
+2  Open to middle of phone book
+3  Look at page
+4  If person is on page
+  5      Call person
+6  Else if person is earlier in book
+  7      Open to middle of left half of book
+  8      Go back to line 3
+9  Else if person is later in book
+  10     Open to middle of right half of book
+  11     Go back to line 3
+12 Else
+  13     Quit
+
+- pseudocoding is such an important skill for at least 2 reasons:
+- first, when you pseudocode before you create formal code, it allows you to think through the logic of your problem in advance.
+- second, you can later provide this information to others that are seeking to understand your coding decisions and how your code works
+- notice that the language within our pseudocode has some unique features.
+- First, some of these lines begin with verbs like pick up, open, look at. We will later call these FUNCTIONS
+- second, notice that some lines include statements like if or else if, these are called CONDITIONALS
+- third, notice how there are expressions that can be stated as true or false such as "person is earlier in the book" we call these BOOLEAN EXPRESSIONS
+- finally, notice how these statements like "go back to line 3", we call these LOOPS
+- in the context of SCRATCH, we will use each of the bove basic building blocks of programming
+
+SCRATCH
+
+- scratch is a visual programming language developed by MIT
+- scratch utilizes the same essential coding building blocks
+- scratch is a great way to get into computer programming because it allows you to play with these building blocks in a visual manner, not having to be concerned about the syntax of curly braces, semicolons, parentheses, etc
+- on the left, there are building blocks that you can use in your programming
+- to the immediate right of the building blocks, there is the area to which you can drag blocks to build a programming
+- to the right of that, you can see the stage where a cat stands, the stage is where your programming comes to life
+- scratch operates on a coordinate system, where 0,0 is the center of the stage.
+- to begin, drag the "when green flag clicked" building block to the programming area. then drag, the say building blok to the programming area and attach it to the previous block
+- the input hellow world is passed to the function say, and the side effect of that function running is the cat saying hello world
+- we can make the program more interactive by having the cat say hello to someone specific, add ask "what is your name?" and wait before the say function, and join hello, with the answer
+- Notice that when the green flag is clicked, the function ask is run. The program prompts you, the user, What's your name? It then stores that name in the variable called answer. The program then passes answer to a special function called join, which combines two strings of text hello, and whatever name was provided. These collectively are passed to the say function. The cat says, Hello, and a name. Your program is now interactive.
+
+ABSTRACTION
+
+- along with pseudocoding, abstraction is an essential skill and concept within computer programming
+- abstraction is the act of simplifying a problem into smaller and smaller problems
+- for example, if you were hosting a huge dinner with your friends, the problem of having to cook the entire meal could be quite overwhelming
+- however, if you break down the task o cooking the meal into smaller and smaller tasks or problems, the big task of creating this dinner feels less challenging
+- in programming, we can see abstraction in action.
+- in scratch, we can program play sound meow wait 1 second and play it again, over and over
+- this can be done with a loop - a block that repeats the code for us
+- We can even advance this further by using the define block, where you can create your own block (your own function)! Write code as follows:
+define meow
+play sound meow until done
+wait 1 seconds
+
+when green flag clicked
+repeat 3
+meow
+
+- notice that we are defining our own block called meow. The function plays the sound meow, then waits one second. Below that, you can see that when the green flag is clicked, our meow function is repeated three times.
+- we can even provide a way by which the function can take an input n and repeat a number of times
+
+IF
+
+- conditionals are an essential building block of programming, where the programs looks to see if a specific condition has been met.
+- if a condition is met, the program does something
+- to illustrate a conditional, write code as follows:
+when green flag clicked
+forever
+if touching mouse pointer thenplay sound meow until done
+
+- Notice that the forever block is utilized such that the if block is triggered over and over again, such that it can check continuously if the cat is touching the mouse pointer.
+- We can modify our program as follows to integrate video sensing:
+when video motion > 50
+play sound meow until done
+
+- Remember, programming is often a process of trial and error. If you get frustrated, take time to talk yourself through the problem at hand. What is the specific problem that you are working on right now? What is working? What is not working?
+
+SUMMING UP
+
+- Few students come to this class with prior coding experience!
+- You are not alone! You are part of a community.
+- Problem solving is the essence of the work of computer scientists.
+- This course is not simply about programming – this course will introduce you to a new way of learning that you can apply to almost every area of life.
+- How numbers, text, images, music, and video are understood by computers.
+- The fundamental programming skill of pseudocoding.
+- How abstraction will play a role in your future work in this course.
+- The basic building blocks of programming, including functions, conditionals, loops, and variables.
+- How to build a project in Scratch.
 
