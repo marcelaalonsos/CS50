@@ -1,0 +1,64 @@
+WEEK 0 NOTES
+
+COMPUTATIONAL THINKING
+
+- essentially, computer programming is about taking some input and creating some output -thus solving a problem.
+- what happens in between the input and output, what we call a black box, is the focus of the course
+- for example, we may need to take attendance for a class. we could use a system called unary to count (or one number,finger at a time).
+- computers today count using a system called binary, it's from the term binary digit that we get a familiar term called bit.
+- a bit is a zero or one.
+- computers speak in terms of zerps and ones.
+- Zeros represent off. Ones represent on. Computers are millions, and perhaps billions, of transistors that are being turned on and off.
+- if you imagine using a lightbulb, a single bub can only count from zero to one
+- however, if you were to have three lightbulbs, there are more options:
+Using three light bulbs, the following could represent zero:
+  0 0 0
+Similarly, the following would represent one:
+  0 0 1
+By this logic, we could propose that the following equals two:
+  0 1 0
+Extending this logic further, the following represents three:
+  0 1 1
+Four would appear as:
+  1 0 0
+We could, in fact, using only three light bulbs count as high as seven!
+  1 1 1
+
+As a heuristic, we could imagine that the following values represent each possible place in our binary digit:
+
+  4 2 1
+Computers use ‘base-2’ to count. This can be pictured as follows:
+
+  2^2  2^1  2^0
+  4    2    1
+
+- therefore, you could say that it would require three bits (the four's place, the two's place and the one's place) to represent a number as high as seven.
+- computers generally use eight bits (a byte) to represent a number. for example 00000101 is the number 5 in binary
+
+TEXT - REPRESENTATION
+
+- just as numbers are binary patterns of ones and zeros, letters are represented using ones and zeros too
+- since there is an overlap between the ones and zeros that represent numbers and letters, the ASCII standard was created to map specific letters to specific numbers
+- for example, the letter A was decided to map to the number 65
+- if you receive a text message, the binary under that message might represent the numbers 72, 73 and 33
+- mapping these out to ASCII, your message would look as follows:
+ H   I   !
+  72  73  33
+
+EMOJI - REPRESENTATION
+
+- since there were not enough digits in binary to represent all the various characters that could be represented by humans, the UNICODE standard expanded the number of bits that can be transmitted and understood by computers
+
+
+RBG - REPRESENTATION
+
+- red, green, and blue is a combination of three numbers (72,73,33)
+- taking our previously used 72,73,33 which said hi! via text, would be interpreted by image renders as a light shade of yellow
+
+IMAGES, VIDEO AND SOUND
+
+- images are simply collections of RGB values
+- videos are sequences of many images that are stored togetherm like a flipbook
+- music can be represented through MIDI data
+
+
