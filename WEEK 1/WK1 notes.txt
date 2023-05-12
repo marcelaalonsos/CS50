@@ -78,3 +78,416 @@ int main(void)
 - there are many data types, sych as int, bool, char
 - running make hello again in the terminal window, you can run your program by typing ./hello
 - the program now asks for your name and then says hello with your name attached
+
+DATA TYPES
+
+- bool
+- char
+- double
+- float
+- int
+- long
+- string
+
+CONDITIONALS
+
+- another building block you utilized within Scratch was that of conditionals. for example, you might want to do one thing if x is greater than you
+- further, you might want to do something else if that condition is not met
+- make a new file called compare.c
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int x = get_int("What's x? ");
+    int y = get_int("What's y? ");
+
+    if (x < y)
+    {
+        printf("x is less than y\n");
+    }
+}
+
+- notice that we created two variables, an int or integer called x and another called y
+- the values of these are populated using the get_int function
+- run the code and check for errors
+- we can improve the program as follows:
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int x = get_int("What's x? ");
+    int y = get_int("What's y? ");
+
+    if (x < y)
+    {
+        printf("x is less than y\n");
+    }
+    else if (x > y)
+    {
+        printf("x is greater than y\n");
+    }
+    else
+    {
+        printf("x is equal to y\n");
+    }
+}
+
+- we have now accounted for all the potential outcomes
+- consider another data type called char
+- create a new program called agree.c
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    // Prompt user to agree
+    char c = get_char("Do you agree? ");
+
+    // Check whether agreed
+    if (c == 'Y' || c == 'y')
+    {
+        printf("Agreed.\n");
+    }
+    else if (c == 'N' || c == 'n')
+    {
+        printf("Not agreed.\n");
+    }
+}
+
+- notice that single quotes are utilized for single characters.
+- further, notice that == ensures that something is equal to something else, where a single equal sign would have a very different function in C
+- finally, || means or
+
+LOOPS
+
+- we can also create loops in c
+- create a new program called meow.c
+#include <stdio.h>
+
+int main(void)
+{
+    printf("meow\n");
+    printf("meow\n");
+    printf("meow\n");
+}
+
+- we can improve the program by:
+#include <stdio.h>
+
+int main(void)
+{
+    int i = 0;
+    while (i < 3)
+    {
+        printf("meow\n");
+        i++;
+    }
+}
+
+- notice that we created an int called i and assigned it the value 0
+- then we created a while loop that will run was long as i < 3
+- then the loop runs
+- every time 1 is added to i using the i++ statement
+- similarly, we can implement a count-down of sorts by modifying the code:
+#include <stdio.h>
+
+int main(void)
+{
+    int i = 3;
+    while (i > 0)
+    {
+        printf("meow\n");
+        i--;
+    }
+}
+
+- the counter i starts at 3
+- everytime the loop runs, it will reduce the counter by 1 with the code i--
+- once the counter is less than 0, it will stop the loop
+
+- we can further improve the design using a for loop
+#include <stdio.h>
+
+int main(void)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        printf("meow\n");
+    }
+}
+
+- notice that the for loop includes three arguments
+- the first argument int i=0 starts our counter at zero
+- the second argument i < 3 is the condition that is being checked
+- finally, i++ tells the loop to increment by one each time the loop runs
+
+- we can even loop forever:
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    while (true)
+    {
+        printf("meow\n");
+    }
+}
+
+- notice that true will always be the case
+- therefore, the code will always run and loop infinitely
+- break the infinite loop hitting ctrl+c
+
+CLI
+
+- Some common command-line arguments we may use include:
+    - cd, for changing our current directory (folder)
+    - cp, for copying files and directories
+    - ls, for listing files in a directory
+    - mkdir, for making a directory
+    - mv, for moving (renaming) files and directories
+    - rm, for removing (deleting) files
+    - rmdir, for removing (deleting) directories
+- The most commonly used is ls which will list all the files in the current directory or directory. Go ahead and type ls into the terminal window and hit enter. You’ll see all the files in the current folder.
+- Another useful command is mv, where you can move a file from one file to another. For example, you could use this command to rename Hello.c (notice the uppercase H) to hello.c by typing mv Hello.c hello.c.
+- You can also create folders. You can type mkdir pset1 to create a directory called pset1.
+- You can then use cd pset1 to change your current directory to pset1.
+
+MARIO
+
+- Everything we’ve discussed today has focused on various building-blocks of your work as a programmer.
+- The following will help you orient toward working on a problem set for this class in general: How does one approach a computer science related problem?
+- Imagine we wanted to emulate the visual of the game Super Mario Bros.
+- Considering the four question-blocks pictured, how could we create code that roughly represents these four horizontal blocks?
+- create a new file called merio.c
+#include <stdio.h>
+
+int main(void)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        printf("?");
+    }
+    printf("\n");
+}
+
+- notice how four question marks are printed using a loop
+- similarly, we can apply this same logic to be able to create three vertical blocks
+#include <stdio.h>
+
+int main(void)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        printf("#\n");
+    }
+}
+
+- notice how three vertical bricks are printed using a loop
+- what if we wanted to combine these ideas to create a three-by-three group of blocks?
+#include <stdio.h>
+
+int main(void)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
+}
+
+- notice that one loop is inside another
+- the first loop defines what vertical row is being printed- for each row, three columns are printed
+- after ech row, a new line is printed
+
+-what if we wanted to ensure that the number of blocks to be constant, that is, unchangable?
+int main(void)
+{
+    const int n = 3;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
+}
+
+- notice how n is now a constant, it can never be changed
+
+- as illustrated earlier, we can make our code prompt the user for the size of the grid
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int n = get_int("Size: ");
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
+}
+
+- notice that get_int is used to prompt the user
+
+- a general piece of advice within programming is that you should never fully trust the user
+- they will likely type incorrect values
+- we can protect our programs by checking to make sure that the user's input satisfies our needs
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int n;
+    do
+    {
+        n = get_int("Size: ");
+    }
+    while (n < 1);
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
+}
+
+- notice how the user is continously prompted for the size until the user's input is 1 or greater
+
+COMMENTS
+
+- comments are fundamental parts of a computer program, where you leave explanatory remarks to yourself and others that may be collaborating with you regarding your code
+- all code you create for this course must include robust comments
+- typically, each comment is a few words or more, providing the reader and opportunity to understand what is happening in a specific block of code
+- further, such comments serve as a reminder for you later when you need to revise the code
+- comments involve placing // into your code, followed by a comment
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    // Get size of grid
+    int n;
+    do
+    {
+        n = get_int("Size: ");
+    }
+    while (n < 1);
+
+    // Print grid of bricks
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
+}
+
+- Notice how each comment begins with a //
+
+ABSTRACTION
+
+- abstraction is the art of simplifying our code such that it deals with smaller and smaller problems
+- looking at your code, you can see how two essential problems in our code are get size of grid and print grid of bricks
+- we can abstract away these two problems into separate functions
+#include <cs50.h>
+#include <stdio.h>
+
+int get_size(void);
+void print_grid(int n);
+
+int main(void)
+{
+    int n = get_size();
+    print_grid(n);
+}
+
+int get_size(void)
+{
+    int n;
+    do
+    {
+        n = get_int("Size: ");
+    }
+    while (n < 1);
+    return n;
+}
+
+void print_grid(int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("#");
+        }
+        printf("\n");
+    }
+}
+
+- notice that we have three functions now
+- first we have the main function that calls two other functions called get_size and print_grid
+- second, we have a second function called get_size, which includes the exact code we had to accomplish the prior task
+- third, we have another function called print_grid that prints the grid
+- because we have abstracted away the essential problems within our program, our main function is very short
+
+OPERATORS AND TYPES
+
+- operators refer to the mathematical operations that are supported by your compiler
+- in C, these mathematical operations include:
+    + for addition
+    - for subtraction
+    * for multiplication
+    / for division
+    % for remainder
+
+- types refer to the possible data that can be stored within a variable
+- for example,  char is designed to accommodate a single character like a or 2
+- types are very important because each type has specific limits
+- for example, because of the limits in memory, the highest value of an int can be 4294967296
+- types with which you might interact during this course include:
+    - bool, a Boolean expression of either true or false
+    - char, a single character like a or 2
+    - double, a floating-point value with more digits than a float
+    - float, a floating-point value, or real number with a decimal value
+    - int, integers up to a certain size, or number of bits
+    - long, integers with more bits, so they can count higher than an int
+    - string, a string of characters
+
+- you can implement a calculator in C
+- create the file calculator.c
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    // Prompt user for x
+    int x = get_int("x: ");
+
+    // Prompt user for y
+    int y = get_int("y: ");
+
+    // Perform addition
+    printf("%i\n", x + y);
+}
+
+- notice how the get_int function is utilized to obtain an integer from the user twice
+- one integer is stored in the int variable called x
+- another is stored in the int variable called y
+- then the printf function prints the value of x + y designated by the %i symbol
+- as you are coding, pay special attention to the types of variables you are using to avoid problems within your code
