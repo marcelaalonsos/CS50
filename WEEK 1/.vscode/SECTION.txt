@@ -1,0 +1,71 @@
+Make a contact list
+
+Variables:
+
+int calls = 4;
+int x = 50;
+
+Why does C care so much about data types?
+- storing different values dictate the capacity in RAM
+
+Updating variables:
+
+int calls = 4; initialized with the value 5 as an int data type
+calls = 5; new value assigned is 5
+
+Assign variables with function calls
+
+int calls = get_int("Calls: ");
+
+Printing values:
+int calls = 4;
+printf("calls is %i\n", calls);
+
+Types and format codes:
+
+Numbers:
+int %i
+float %f
+long %li
+double %f
+
+text:
+char %c
+string %s
+
+Conditionals
+
+if (calls < 1)
+{
+  printf("Call more often!\n");
+}
+else
+{
+  printf("Thanks for calling!\n");
+}
+
+While loop
+
+int i = 0;
+while (i < 10)
+{
+  printf("%i\n", i);
+  i++;
+}
+
+For loop
+
+for (int i = 0; i < 10; i++)
+{
+  printf("%i\n", i);
+}
+
+Do while loop
+
+int n;
+do
+{
+  n = get_int("n: ");
+}
+while (n <= 0);
+
