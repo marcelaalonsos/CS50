@@ -1,0 +1,52 @@
+SECTION WEEK 2 - ARRAYS
+
+- what are the steps involved in compilation?
+- what are arrays?
+- whata re strings in the context of arrays?
+- what's the point of command line arguments?
+- what makes good design?
+
+1. compilation
+
+source code - assembly code - machine code(binary)
+clang -o filename filename.c
+
+2. arrays
+
+- the most basic data structure
+- one block of memory storing individual pieces of data
+
+int hours[5] // type name length
+
+- access the values of the array
+hours[0] // it starts counting from index 0
+
+- add data to array
+hours[0] = 7;
+
+- create array with pre-established values
+int hours[] = {7, 8, 9, 8, 8};
+
+- access an array with a for loop
+int hours[] = {7, 8, 9, 8, 8};
+
+for (int i = 0; i < 5; i++)
+{
+  printf("%i\n", hours[i]);
+}
+
+3. strings
+
+- strings are collections of characters
+- an array of characters
+
+string name = "Emma";
+name[0] = E
+name[1] = m
+name[2] = m
+name[3] = a
+name[4] = \0 --> nul --> marks the end of the string
+
+char name[] = {'e', 'm', 'm', 'a', '\0'};
+
+
