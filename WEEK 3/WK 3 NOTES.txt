@@ -1,0 +1,472 @@
+WEEK 3 NOTES - ALGORITHMS
+
+ALGORITHMS
+
+- recall that last week, you were introduced to the idea of an array, blocks of memory that are side-by-side with one another
+- you can metaphorically imagine an array like a series of seven red lockers
+- you want to know "is the number 50 inside an array?"
+- we can potentially hand our array to an algorithm, wherein our algorithm will search through our lockers to see if the number 50 is behind one of the doors, resulting in the value true or false
+- we can imagine various instructions we might provide our algorithm to undertake this task:
+For each door from left to right
+    If 50 is behind door
+        Return true
+Return false
+
+- notice that the above instructions are called pseudocode
+- a computer scientist would translate that pseudocode into:
+For i from 0 to n-1
+    If 50 is behind doors[i]
+        Return true
+Return false
+
+- notice that the above is still not code
+
+- BINARY SEARCH is a search algorithm that could be employed in our task of finding the 50
+- assuming that the values within the lockers have been arranged from smallest to largest, the pseudocode for binary search would appear as follows:
+If there are no doors
+    Return false
+If 50 is behind middle door
+    Return true
+Else if 50 < middle door
+    Search left half
+Else if 50 > middle door
+    Search right half
+
+- using the nomenclature of code:
+If no doors
+    Return false
+If 50 is behind doors[middle]
+    Return true
+Else if 50 < doors[middle]
+    Search doors[0] through doors[middle-1]
+Else if 50 > doors[middle]
+    Search doors[middle+1] through doors[n-1]
+
+- notice, looking at this approximation of code, you can nearly imagine what this might look like in actual code
+
+RUNNING TIME
+
+- running time involves an analysis using big O notation
+- it's the shape of the curve that shows the efficiency of an algorithm:
+  - O(n^2)
+  - O(n log n)
+  - O(n)
+  - O(log n)
+  -O(1)
+
+- of the running times above, O(n^2) is considered the worst running time, O(1) is the fastest
+- linear search was aoforder O(n) because it would take n steps in the worst case to run
+- Binary Search was of the order O(log n) because it would take fewer and fewer steps to run even in the worst case
+- Programmers are interested in both the worst case, or upper bound, and the best case, or lower bound
+- the omega symbol is used to denote the best case of an algorithm such as omega(log n)
+- the theta symbol is used to denoted where the upper bound and lower bounf are the same, where the best case and the worst case running times are the same
+
+LINEAR AND BINARY SEARCH
+
+- you can implement linear search ourselves and writing code as follows:
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    // An array of integers
+    int numbers[] = {20, 500, 10, 5, 100, 1, 50};
+
+    // Search for number
+    int n = get_int("Number: ");
+    for (int i = 0; i < 7; i++)
+    {
+        if (numbers[i] == n)
+        {
+            printf("Found\n");
+            return 0;
+        }
+    }
+    printf("Not found\n");
+    return 1;
+}
+
+- notices that the line beginning with int numbers[] allows us to define the values of each element of the array as we create it
+- then in the for loop, we have an implementation of linear search
+- what if we wanted to search for a string within an array? modify the code as follows:
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    // An array of strings
+    string strings[] = {"battleship", "boot", "cannon", "iron", "thimble", "top hat"};
+
+    // Search for string
+    string s = get_string("String: ");
+    for (int i = 0; i < 6; i++)
+    {
+        if (strcmp(strings[i], s) == 0)
+        {
+            printf("Found\n");
+            return 0;
+        }
+    }
+    printf("Not found\n");
+    return 1;
+}
+
+- notice that we cannot utilize == as in our previous iteration of the program
+- instead, we have to use strcmp which comes from the string.h library
+- indeed, running this code allows us to iterate over this array of strings to see if a certain string was within it
+- however, if you see a segmentation fault, where a part of memory was touched by your program that it should not have access to, do make sure you have i < 6 noted above instead of i < 7
+- we can combine these ideas of both numbers and strings into a single program, create a program called phonebook with this code:
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    // Arrays of strings
+    string names[] = {"Carter", "David"};
+    string numbers[] = {"+1-617-495-1000", "+1-949-468-2750"};
+
+    // Search for name
+    string name = get_string("Name: ");
+    for (int i = 0; i < 2; i++)
+    {
+        if (strcmp(names[i], name) == 0)
+        {
+            printf("Found %s\n", numbers[i]);
+            return 0;
+        }
+    }
+    printf("Not found\n");
+    return 1;
+}
+
+- notice that carter's number begins with +1-617 and david's phone number starts with '1-949'
+- therefore, names[0] is carter and numbers[0] is carter's number
+- while this code works, there are numerous inefficiencies
+- indeed, there is a chance that people's names and numbers may not correspond
+- wouldn't be nice if we could create our own data type where we could associate a person with the phone number?
+
+DATA STRUCTURES
+
+- it turns out that C allows a way by which we can create our own data types via a struct:
+
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+typedef struct
+{
+    string name;
+    string number;
+}
+person;
+
+int main(void)
+{
+    person people[2];
+
+    people[0].name = "Carter";
+    people[0].number = "+1-617-495-1000";
+
+    people[1].name = "David";
+    people[1].number = "+1-949-468-2750";
+
+    // Search for name
+    string name = get_string("Name: ");
+    for (int i = 0; i < 2; i++)
+    {
+        if (strcmp(people[i].name, name) == 0)
+        {
+            printf("Found %s\n", people[i].number);
+            return 0;
+        }
+    }
+    printf("Not found\n");
+    return 1;
+}
+
+- notice that the code begins with typedef struct where a new datatype called person is defined
+- insde a person is a string called name and a string called number
+- in the main function, begin by creating an array called people that is of type person that is a size 2
+- then, we update the names and phone numbers of the two people in our people array
+- most important, notice how the dot notation such as people[0].name allows us to access the person at the 0th location and assign that individual a name
+
+SORTING
+
+- sorting is the act of taking an unsorted list of values and transforming this list into a sorted one
+- when a list is sorted, searching that list is far less taxing on the computer
+- recall that we use binary search on a sorted list, but not an unsorted one
+- it turns out that there are many different types of sort algorithms
+- SELECTION SORT is one such algorithm
+- the algorithm for selection sort in pseudocode is:
+
+For i from 0 to n–1
+    Find smallest number between numbers[i] and numbers[n-1]
+    Swap smallest number with numbers[i]
+
+- consider the unsorted list as follows:
+ 5 2 7 4 1 6 3 0
+
+- selection sort will begin looking for the smallest number in the list and swap that number with our current position in the list
+- in this case, the zero is located and moved to our current position:
+ 0 | 2 7 4 1 6 3 5
+
+- now, our problem has gotten smaller since we know at least the beginning of our list is correct
+- so we can repeat what we did, starting from from the second number in the list:
+ 0 | 2 7 4 1 6 3 5
+
+- 1 is the smallest number now, so we'll swap it with the second number, we'll repeat this again, and again, and again, and so on:
+ 0 1 | 7 4 2 6 3 5
+ 0 1 2 | 4 7 6 3 5
+ 0 1 2 3 | 7 6 4 5
+ 0 1 2 3 4 | 6 7 5
+
+- BUBBLE SORT is another sorting algorithm that works repeatedly swapping elements to "bubble" larger elements to the end
+- the pseudocode for bubble sort is:
+
+Repeat n-1 times
+For i from 0 to n–2
+    If numbers[i] and numbers[i+1] out of order
+        Swap them
+
+- we'll start with our unsorted list, but this time we'll look at pairs of numbers and swap them if they are out of order:
+5 2 7 4 1 6 3 0
+^ ^
+2 5 7 4 1 6 3 0
+  ^ ^
+2 5 7 4 1 6 3 0
+    ^ ^
+2 5 4 7 1 6 3 0
+      ^ ^
+2 5 4 1 7 6 3 0
+        ^ ^
+2 5 4 1 6 7 3 0
+          ^ ^
+2 5 4 1 6 3 7 0
+            ^ ^
+2 5 4 1 6 3 0 7
+
+- now the highest number is all the way to the right, so we've improved our problem
+- repeat again:
+2 5 4 1 6 3 0 | 7
+^ ^
+2 5 4 1 6 3 0 | 7
+  ^ ^
+2 4 5 1 6 3 0 | 7
+    ^ ^
+2 4 1 5 6 3 0 | 7
+      ^ ^
+2 4 1 5 6 3 0 | 7
+        ^ ^
+2 4 1 5 3 6 0 | 7
+          ^ ^
+2 4 1 5 3 0 6 | 7
+
+- now the two biggest values are on the right, we'll repeat:
+2 4 1 5 3 0 | 6 7
+  ^ ^
+  2 4 1 5 3 0 | 6 7
+    ^ ^
+  2 1 4 5 3 0 | 6 7
+      ^ ^
+  2 1 4 5 3 0 | 6 7
+        ^ ^
+  2 1 4 3 5 0 | 6 7
+          ^ ^
+  2 1 4 3 0 5 | 6 7
+
+- and again:
+2 1 4 3 0 | 5 6 7
+  ^ ^
+  1 2 4 3 0 | 5 6 7
+    ^ ^
+  1 2 3 4 0 | 5 6 7
+      ^ ^
+  1 2 3 4 0 | 5 6 7
+        ^ ^
+  1 2 3 0 4 | 5 6 7
+
+- and again:
+1 2 3 0 | 4 5 6 7
+  ^ ^
+  1 2 3 0 | 4 5 6 7
+    ^ ^
+  1 2 3 0 | 4 5 6 7
+      ^ ^
+  1 2 0 3 | 4 5 6 7
+
+- and again:
+1 2 0 | 3 4 5 6 7
+  ^ ^
+  1 2 0 | 3 4 5 6 7
+    ^ ^
+  1 0 2 | 3 4 5 6 7
+
+- and finally:
+ 1 0 | 2 3 4 5 6 7
+  ^ ^
+  0 1 | 2 3 4 5 6 7
+
+- notice that as we go through our list, we know more and more of it becomes sorted, so we only need to look at the pairs of numbers that haven't been sorted yet
+- analysing selection sort, we made only seven comparissons
+- representing this mathematically, where n represents the number of cases, it could be said that selection sort can be analyzed as:
+(n-1)+(n-2)+(n-3)+ ... + 1
+
+- or more simply: n^2/2 --n/2
+- considering that mathematical analysis, n^2 is really the most influential factor in determining the efficiency of this algorithm
+- therefore, selection sort is considered to be of the order of O(n^2) in the worst case where all values are unsorted
+- even when all values are sorted, it will take the same amount of number of steps
+- therefore, the best case can be noted as Omega(n^2)
+- since both the upper bound and lower bound cases are the same, the efficiency of this algorithm as a whole can be regarded as theta(n^2)
+- analyzing bubble sort, the worst case is O(n^2), the best case is omega(n)
+
+RECURSION
+
+- how could we improve our efficiency in our sorting?
+- RECURSION is a concept within programming where a function calls itself..we saw this earlier when:
+If no doors
+    Return false
+If number behind middle door
+    Return true
+Else if number < middle door
+    Search left half
+Else if number > middle door
+    Search right half
+
+- notice that we are calling search on smaller and smaller iterations of this problem
+- similarly, in pseudocode for week 1, you can see where recursion was implemented:
+1  Pick up phone book
+2  Open to middle of phone book
+3  Look at page
+4  If person is on page
+5      Call person
+6  Else if person is earlier in book
+7      Open to middle of left half of book
+8      Go back to line 3
+9  Else if person is later in book
+10     Open to middle of right half of book
+11     Go back to line 3
+12 Else
+13     Quit
+
+- consider how in week 1 we wanted to create a pyramid structure as follows:
+  #
+  ##
+  ###
+  ####
+
+- to implement this using recursion, code as follows:
+#include <cs50.h>
+#include <stdio.h>
+
+void draw(int n);
+
+int main(void)
+{
+    draw(1);
+}
+
+void draw(int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        printf("#");
+    }
+    printf("\n");
+
+    draw(n + 1);
+}
+
+- notice that the draw function calls itself
+- further, note that your code may get caught in an infinite loop
+- to break from this loop, if you get stuck, hit ctrl + c on the keyboard
+- the reason this creates an infinite loop is that there is nothing telling the program to end
+- there is no case where the program is done
+- we can correct this:
+
+#include <cs50.h>
+#include <stdio.h>
+
+void draw(int n);
+
+int main(void)
+{
+    // Get height of pyramid
+    int height = get_int("Height: ");
+
+    // Draw pyramid
+    draw(height);
+}
+
+void draw(int n)
+{
+    // If nothing to draw
+    if (n <= 0)
+    {
+        return;
+    }
+
+    // Draw pyramid of height n - 1
+    draw(n - 1);
+
+    // Draw one more row of width n
+    for (int i = 0; i < n; i++)
+    {
+        printf("#");
+    }
+    printf("\n");
+}
+
+- notice the base case will ensure the code does not run forever
+- the ;ine if (n <= 0) terminates the recursion because the problem has been solved
+- every time draw calls itself, it calls itself by n-1
+- at some point n-1 will equal 0 resulting in the draw function returning and the program will end
+
+MERGE SORT
+
+- we can now leverage recursion in our quest for a more efficient sort algorithm and implement what is called merge sort, a very efficient sort algorithm
+- the pseudocode for merge sort is quite short:
+If only one number
+    Quit
+Else
+    Sort left half of number
+    Sort right half of number
+    Merge sorted halves
+
+- consider the following list of numbers:
+7254
+- first, merge sort asks "is this one number?"
+- the answer is no, so the algorithm continues
+- second, merge sort will now split the numbers down the middle (or as close as it can get) and sort the left half of the numbers:
+72 | 54
+- third, merge sort would look at these numbers on the left and ask "is this one number?"
+- since the answer is no, it would then split the numbers to the left down the middle:
+7 | 2
+- fourth, merge sort will again ask "is this one number?" the answer is yes this time
+- therefore it will quit this task and return to the last task it was running at this point:
+72 | 54
+- fifth, merge sort will sort the numbers on the left
+27 | 54
+- now, we return to where we left off in the pseudocode now that the left side has been sorted
+- a similar process of steps 3-5 will occur with the right-hand numbers
+- this will result in:
+27 | 45
+- both halves are now sorted
+- finally, the algorithm will merge both sides
+- it will look at the first number on the left and first number on the right
+- it will put the smaller number first, then the second smallest
+- the algorithm will repeat this for all numbers resulting in:
+2457
+- merge sort is complete and the program quits
+- merge sort is very effcient sort algorithm with a worst case scenario of O(n log n)
+- the best case is still Omega(n log n) because the algorithm still must visit each place in the list
+- therefore, merge sort is also theta(n log n) since the best case and the worst case are the same
+
+SUMMING UP
+- Algorithms.
+- Big O notation.
+- Binary search and linear search.
+- Various sort algorithms, including bubble sort, selection sort, and merge sort.
+- Recursion
