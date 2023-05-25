@@ -1,0 +1,65 @@
+SECTION WEEK 3 - ALGORITHMS
+
+- how should we compare algorithms?
+- when are strucys useful?
+- what is recursion?
+
+1. Compare Algorithms
+
+Running time: "on the order of..."
+- for any input what is the most number of steps my algorithm will ever take?
+- how many steps will my algorithm take for the very worst case input?
+Upper bound is the worst case, the most steps - big O notation
+Linear Search - n steps or O(n)
+Binary Search - log n steps or O(log n)
+
+- for any input, what is the least number of steps the algorithm will ever take?
+- for the best case, how many steps?
+Lower bound is the best case, the least steps - Omega notation
+Linear Search - Omega(1)
+Binary Search - Omega(1)
+
+Selection Sort - looks at first element and finds the smallest element in the list and then switches places, so can only look at one element at a time
+Upper bound runtime - O(n^2)
+Lower bound runtime - Omega(n^2)
+
+2. Structs
+
+- a combination of datatypes
+- why use this? to store different datatypes for a single instance
+
+typedef let's you specify a name for the struct and use it across the program
+you cannot tie a function or methods to structs
+typedef struct
+{
+  //attributes
+  string name;
+  int votes;
+}
+
+candidate;
+
+candidate president;
+president.name = "Marcela";
+president.votes = 4000;
+
+3. Recursion
+
+- an approach to problem solving
+- taking a large problem and breaking it into smaller pieces that we can solve
+
+Factorial
+
+1! = 1
+2! = 2 * 1
+3! = 3 * 2 * 1
+4! = 4 * 3 * 2 * 1
+
+4! = ?
+4! = 4 * 3! --> recursive call
+
+3! = 3 * 2!
+2! = 2 * 1!
+1! = 1 --> base case, the problem we know how to solve for a fact, no need to make it smaller
+
+

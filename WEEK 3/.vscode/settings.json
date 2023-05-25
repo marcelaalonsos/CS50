@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "*.excalidraw": "json",
+    "*.excalidrawlib": "json",
+    ".gitignore": "shellscript",
+    "stdio.h": "c"
+  }
+}
