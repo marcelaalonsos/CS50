@@ -1,0 +1,349 @@
+WEEK 4 NOTES - MEMORY
+
+HEXADECIMAL
+
+- Hexadecimal is a system of counting that has 16 counting values:
+0 1 2 3 4 5 6 7 8 9 a b c d e f g
+- Hexadecimal is also known as base-16
+- when counting in hexidecimal, each column is a power of 16
+- the number 0 is represented as 00
+- the number 1 is represented as 01
+- the number 9 is represented as 09
+- the number 10 is represented as 0A
+- the number 15 is represented as 0F
+- the number 16 is represented as 10
+- the number 255 is represented as FF, because 16 x 15 (or F) is 240, add 15 more to make 255
+- this is the highest number you can count using a two-digit hexideimal system
+-hexidecimal is useful because it can be represented using fewer digits
+- hexidecimal allows us to represent information more succintly
+
+ADDRESSES
+
+- in weeks past, you may recall our artist rendering of concurrent blocks of memory
+- applying hexadecimal numbering to each of these blocks of memory
+- create a program with the following:
+#include <stdio.h>
+
+int main(void)
+{
+    int n = 50;
+    printf("%i\n", n);
+}
+
+- notice how n is stored in memory with the value 50
+- the C language has teo powerful operators that relate to memory:
+& provides the address of something stored in memory
+* instructs the compiler to go to a location in memory
+- we can leverage this:
+
+#include <stdio.h>
+
+int main(void)
+{
+    int n = 50;
+    printf("%p\n", &n);
+}
+
+- notice thta %p, which allows us to view the address of a location in memory
+- &n can be literally translated as "the address of n"
+- executing this code will return the address of memory beginning with 0x
+
+POINTERS
+
+- a pointer is a variable that contains the address of some value
+- most succintly, a pointer is an address in the computer's memory
+- consider the following code:
+int n = 50;
+int *p = &n;
+
+- ntoice that p is a pointer that contains a number that is the address of an integer notice
+- modify code as follows:
+
+#include <stdio.h>
+
+int main(void)
+{
+    int n = 50;
+    int *p = &n;
+    printf("%p\n", p);
+}
+
+- notice that this code has the same effect as our previous code
+- we have simply leveraged our new knowledge of the & and * operators
+- a pointer is usually stored as an 8-byte value
+- to illustrate the use of the * operator, consider the following:
+
+#include <stdio.h>
+
+int main(void)
+{
+    int n = 50;
+    int *p = &n;
+    printf("%i\n", *p);
+}
+
+- notice that the printf line prints the integer at the location of p
+
+STRINGS
+
+- now that we have a mental model for pointers, we can peel back a level of simplifications that was offered earlier in this course
+- recall that a string is simply an array of characters
+string s = "HI!"
+
+- however, what is s really?
+- where is s stored in memory?
+- as you can imagine s needs to be stored somewhere
+- notice how the pointer called s tells the compiler where the first vyte of the string exists in memory
+- modify the code as follows:
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    string s = "HI!";
+    printf("%p\n", s);
+    printf("%p\n", &s[0]);
+    printf("%p\n", &s[1]);
+    printf("%p\n", &s[2]);
+    printf("%p\n", &s[3]);
+}
+
+- notice thte above prints the memory location of each characters in the string s
+- likewise, you can modify the code as follows:
+
+#include <stdio.h>
+
+int main(void)
+{
+    char *s = "HI!";
+    printf("%s\n", s);
+}
+
+- notice that this code will present the string that starts at the location of s
+
+POINTER ARITHMETIC
+
+- you can modify your code to accomplish the same thing in a longer form as follows:
+
+#include <stdio.h>
+
+int main(void)
+{
+    char *s = "HI!";
+    printf("%c\n", s[0]);
+    printf("%c\n", s[1]);
+    printf("%c\n", s[2]);
+}
+
+- notice that we are printing each character at the location of s
+
+- further, you can modify the code:
+
+#include <stdio.h>
+
+int main(void)
+{
+    char *s = "HI!";
+    printf("%c\n", *s);
+    printf("%c\n", *(s + 1));
+    printf("%c\n", *(s + 2));
+}
+
+- notice that the first character at the location of s is printed
+- then the character at the location s + 1 is printed, and so on
+- can you imagine what would happen if you attempted to access something at location s + 50?
+- hackers sometimes attempt to gain access to items in memort they should not have access to
+- if you attempt this, the program will likely quit as a safety precaution
+
+COMPARING STRINGS
+
+- a string of characters in simply an array of characters identified by its first byte
+- recall last week we proposed that we could not compare to strings using the == operator
+- utlizing the == operator in an attempt to compare strings will attempt to compare the memory locations of the strings instead of the characters therein
+- accordingly, we would use strcmp
+- to illustrate this, write this code:
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    // Get two strings
+    char *s = get_string("s: ");
+    char *t = get_string("t: ");
+
+    // Compare strings' addresses
+    if (s == t)
+    {
+        printf("Same\n");
+    }
+    else
+    {
+        printf("Different\n");
+    }
+}
+
+- notice that typing HI! for both strings still result in the output of Different
+- modify your code as follows:
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    // Get two strings
+    char *s = get_string("s: ");
+    char *t = get_string("t: ");
+
+    // Print strings
+    printf("%s\n", s);
+    printf("%s\n", t);
+}
+
+- notice how we now have two separate strings stored likely at two separate locations
+- you can see the locations of these two stored strings with a small modification:
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    // Get two strings
+    char *s = get_string("s: ");
+    char *t = get_string("t: ");
+
+    // Print strings' addresses
+    printf("%p\n", s);
+    printf("%p\n", t);
+}
+
+- notice that the %s has been changed to %p in the print statement
+
+COPYING
+
+- a common need in programming is to copy one string to another
+- write code as follows:
+
+#include <cs50.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    // Get a string
+    string s = get_string("s: ");
+
+    // Copy string's address
+    string t = s;
+
+    // Capitalize first letter in string
+    t[0] = toupper(t[0]);
+
+    // Print string twice
+    printf("s: %s\n", s);
+    printf("t: %s\n", t);
+}
+
+- notice that string t = s copies the addresses of s to t
+- this does not accomplish what we are desiring, the string is not copied, only the address is
+- before we address this challenges, it's important to ensure that we don't experience a segmentation fault throught the code
+- where we attempt to copy string s to string t, where string t does not exist
+- we can employ the strlen function as follows:
+
+#include <cs50.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    // Get a string
+    string s = get_string("s: ");
+
+    // Copy string's address
+    string t = s;
+
+    // Capitalize first letter in string
+    if (strlen(t) > 0)
+    {
+        t[0] = toupper(t[0]);
+    }
+
+    // Print string twice
+    printf("s: %s\n", s);
+    printf("t: %s\n", t);
+}
+
+- ntoice that strlen is used to make sure string t exists
+- if it does not, nothing will be copied
+- notice that s and t are still pointing at the same blocks of memory
+- this is not an authentic copy of a string
+- instead, these are two pointers pointing at the same string
+- to be able to make an authentic copy of the string, we will need to introduce two new building blocks
+- first malloc allows you to allocate a block of a specific size of memory
+- second, free allows you to tell the compiler to free up that block of memory you previously allocated
+- we can modify our code to create an authentic copy of our string as follows:
+
+#include <cs50.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(void)
+{
+    // Get a string
+    char *s = get_string("s: ");
+
+    // Allocate memory for another string
+    char *t = malloc(strlen(s) + 1);
+
+    // Copy string into memory, including '\0'
+    for (int i = 0; i <= strlen(s); i++)
+    {
+        t[i] = s[i];
+    }
+
+    // Capitalize copy
+    t[0] = toupper(t[0]);
+
+    // Print strings
+    printf("s: %s\n", s);
+    printf("t: %s\n", t);
+}
+
+- notice that mallos(strlen(s) + 1) creates a block of memory that is the length of the string s + 1
+- this allows for the inclusion of the null \0 character in our final, copied string
+- then, the for loop walks through the string s and assigns each value to the same location on the string t
+
+- it turns out that there is an inefficiency in our code, modify as follows:
+
+#include <cs50.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(void)
+{
+    // Get a string
+    char *s = get_string("s: ");
+
+    // Allocate memory for another string
+    char *t = malloc(strlen(s) + 1);
+
+    // Copy string into memory, including '\0'
+    for (int i = 0, n = strlen(s); i <= n; i++)
+    {
+        t[i] = s[i];
+    }
+
+    // Capitalize copy
+    t[0] = toupper(t[0]);
+
+    // Print strings
+    printf("s: %s\n", s);
+    printf("t: %s\n", t);
+}
