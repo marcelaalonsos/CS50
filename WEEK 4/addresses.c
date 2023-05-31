@@ -24,4 +24,5 @@ int main(void)
 {
   char *s = "HI!"; //string is actually char * s it is a pointer pointing to an array of characters
   printf("%s\n", s);
+  printf("%s\n", s + 1); //will print the substrings after s + 1
 }
